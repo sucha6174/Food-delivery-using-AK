@@ -100,7 +100,7 @@ def print_analytics_report():
         lines.append("   (No events received yet)")
     else:
         for st, count in sorted(status_snapshot.items(), key=lambda x: x[0]):
-            bar = "■" * min(count, 30)
+            bar = "=" * min(count, 30)
             lines.append(f"   {st:<18} : {count:>4}  {bar}")
 
     lines.append("-" * 62)

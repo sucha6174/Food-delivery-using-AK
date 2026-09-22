@@ -25,8 +25,9 @@ PERSIST_INTERVAL = int(os.getenv("PERSIST_INTERVAL", "10"))
 ANALYTICS_INTERVAL = int(os.getenv("ANALYTICS_INTERVAL", "15"))
 DEFAULT_ORDERS = int(os.getenv("DEFAULT_ORDERS", "10"))
 
-# State Persistence File
-STATE_FILE = os.getenv("STATE_FILE", "state.json")
+# State Persistence File (default located in project root)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STATE_FILE = os.getenv("STATE_FILE", os.path.join(BASE_DIR, "state.json"))
 
 # Order Lifecycle Sequence
 ORDER_STATUS_FLOW = [
