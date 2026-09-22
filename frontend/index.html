@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FlashBite | Real-Time Food Delivery Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="navbar">
+      <div class="brand">
+        <div class="logo-icon">⚡</div>
+        <div class="brand-text">
+          <h1>FlashBite <span class="highlight">Pulse</span></h1>
+          <p class="subtitle">Apache Kafka Real-Time Order Stream</p>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div id="connection-pill" class="status-pill connecting">
+          <span class="pulse-dot"></span>
+          <span id="connection-text">Connecting...</span>
+        </div>
+        <div class="last-polled">
+          <span>Updated:</span>
+          <span id="last-updated-time" class="mono">--:--:--</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Metrics Summary Cards -->
+    <section class="metrics-row">
+      <div class="metric-card active-card">
+        <div class="metric-icon">📦</div>
+        <div class="metric-content">
+          <div class="metric-label">Active Orders</div>
+          <div id="total-active-count" class="metric-value">0</div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon">📝</div>
+        <div class="metric-content">
+          <div class="metric-label">Placed</div>
+          <div id="placed-count" class="metric-value">0</div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon">👨‍🍳</div>
+        <div class="metric-content">
+          <div class="metric-label">In Kitchen</div>
+          <div id="kitchen-count" class="metric-value">0</div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon">🛵</div>
+        <div class="metric-content">
+          <div class="metric-label">Out for Delivery</div>
+          <div id="delivery-count" class="metric-value">0</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Error Banner -->
+    <div id="error-banner" class="banner error-banner hidden">
+      <span class="banner-icon">⚠️</span>
+      <span id="error-message">Unable to connect to Status API (<code>GET /state</code>). Retrying...</span>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="content-area">
+      <div class="section-header">
+        <h2>Live Active Orders <span id="orders-badge" class="count-badge">0</span></h2>
+        <div class="polling-info">
+          <span class="refresh-indicator"></span> Auto-polling every 2s
+        </div>
+      </div>
+
+      <!-- Loading Placeholder -->
+      <div id="loading-state" class="state-placeholder">
+        <div class="spinner"></div>
+        <p>Connecting to Kafka State Stream...</p>
+      </div>
+
+      <!-- Empty State -->
+      <div id="empty-state" class="state-placeholder hidden">
+        <div class="placeholder-icon">🍽️</div>
+        <h3>No Active Orders in Progress</h3>
+        <p>Start the producer to simulate incoming customer orders and observe real-time Kafka event streaming.</p>
+        <div class="code-hint">
+          <code>python producer.py --orders 5</code>
+        </div>
+      </div>
+
+      <!-- Orders Grid -->
+      <div id="orders-grid" class="orders-grid hidden"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Powered by <strong>Apache Kafka</strong> &bull; Consumer Group: <code>status-tracker</code> &bull; Topic: <code>order-events</code></p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
